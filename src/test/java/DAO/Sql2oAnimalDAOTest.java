@@ -38,7 +38,7 @@ public class Sql2oAnimalDAOTest {
 
     @Test
     public void addingCourseSetsId() throws Exception {
-        Animal testAnimal = new Animal("Dave", "Male", "Dog", "Husky", 1, "01/17/2018");
+        Animal testAnimal = new Animal("Dave", "Male", "Dog", "Husky", "01/17/2018");
         int originalAnimalId = testAnimal.getId();
         animalDAO.add(testAnimal);
         assertNotEquals(originalAnimalId, testAnimal.getId());
@@ -46,7 +46,7 @@ public class Sql2oAnimalDAOTest {
 
     @Test
     public void existingAnimalsCanBeFoundById() throws Exception {
-        Animal animal = new Animal("Dave", "Male", "Dog", "Husky", 1, "01/17/2018");
+        Animal animal = new Animal("Dave", "Male", "Dog", "Husky", "01/17/2018");
         animalDAO.add(animal);
         Animal foundAnimal = animalDAO.findById(animal.getId());
         assertEquals(animal, foundAnimal);
@@ -54,15 +54,15 @@ public class Sql2oAnimalDAOTest {
 
     @Test
     public void addedAnimalsCanBeFoundByGetAll() throws Exception {
-        Animal animal = new Animal("Dave", "Male", "Dog", "Husky", 1, "01/17/2018");
+        Animal animal = new Animal("Dave", "Male", "Dog", "Husky", "01/17/2018");
         animalDAO.add(animal);
         assertEquals(1, animalDAO.getAll().size());
     }
 
     @Test
     public void canFindByBreed() throws Exception {
-        Animal animalOne = new Animal("Dave", "Male", "Dog", "Husky", 1, "01/17/2018");
-        Animal animalTwo = new Animal("Jeff", "Female", "Cat", "Calico", 1, "06/09/1969");
+        Animal animalOne = new Animal("Dave", "Male", "Dog", "Husky", "01/17/2018");
+        Animal animalTwo = new Animal("Jeff", "Female", "Cat", "Calico", "06/09/1969");
         animalDAO.add(animalOne);
         animalDAO.add(animalTwo);
         assertEquals(1, animalDAO.findByBreed("Husky").size());
@@ -70,8 +70,8 @@ public class Sql2oAnimalDAOTest {
 
     @Test
     public void canFindByType() throws Exception {
-        Animal animalOne = new Animal("Dave", "Male", "Dog", "Husky", 1, "01/17/2018");
-        Animal animalTwo = new Animal("Jeff", "Female", "Cat", "Calico", 1, "06/09/1969");
+        Animal animalOne = new Animal("Dave", "Male", "Dog", "Husky",  "01/17/2018");
+        Animal animalTwo = new Animal("Jeff", "Female", "Cat", "Calico",  "06/09/1969");
         animalDAO.add(animalOne);
         animalDAO.add(animalTwo);
         assertEquals(1, animalDAO.findByType("Cat").size());
@@ -79,9 +79,9 @@ public class Sql2oAnimalDAOTest {
 
     @Test
     public void sortByName() throws Exception {
-        Animal animalOne = new Animal("Dave", "Male", "Dog", "Husky", 1, "01/17/2018");
-        Animal animalTwo = new Animal("Jeff", "Female", "Cat", "Calico", 1, "06/09/1969");
-        Animal animalThree = new Animal("Amanda", "Female", "Cat", "Calico", 1, "06/09/1969");
+        Animal animalOne = new Animal("Dave", "Male", "Dog", "Husky",  "01/17/2018");
+        Animal animalTwo = new Animal("Jeff", "Female", "Cat", "Calico",  "06/09/1969");
+        Animal animalThree = new Animal("Amanda", "Female", "Cat", "Calico",  "06/09/1969");
         animalDAO.add(animalOne);
         animalDAO.add(animalTwo);
         animalDAO.add(animalThree);
@@ -92,15 +92,28 @@ public class Sql2oAnimalDAOTest {
 
     @Test
     public void sortByDateAdmitted() throws Exception {
-        Animal animalOne = new Animal("Dave", "Male", "Dog", "Husky", 1, "2018-04-20");
-        Animal animalTwo = new Animal("Jeff", "Female", "Cat", "Calico", 1, "1969-06-09");
-        Animal animalThree = new Animal("Amanda", "Female", "Cat", "Calico", 1, "2001-06-09");
+        Animal animalOne = new Animal("Dave", "Male", "Dog", "Husky",  "2018-04-20");
+        Animal animalTwo = new Animal("Jeff", "Female", "Cat", "Calico",  "1969-06-09");
+        Animal animalThree = new Animal("Amanda", "Female", "Cat", "Calico",  "2001-06-09");
         animalDAO.add(animalOne);
         animalDAO.add(animalTwo);
         animalDAO.add(animalThree);
         assertEquals("Jeff", animalDAO.sortByDateAdmitted().get(0).getName());
         assertEquals("Amanda", animalDAO.sortByDateAdmitted().get(1).getName());
         assertEquals("Dave", animalDAO.sortByDateAdmitted().get(2).getName());
+    }
+
+    @Test
+    public void canSetAnimalOwnerId() throws Exception {
+        Animal animalOne = new Animal("Dave", "Male", "Dog", "Husky",  "2018-04-20");
+        Animal animalTwo = new Animal("Jeff", "Female", "Cat", "Calico",  "1969-06-09");
+        Animal animalThree = new Animal("Amanda", "Female", "Cat", "Calico",  "2001-06-09");
+        animalDAO.add(animalOne);
+        animalDAO.add(animalTwo);
+        animalDAO.add(animalThree);
+        animalDAO.setOwner(2,2);
+        assertEquals(2, animalDAO.findById(2).getCustomerId());
+
     }
 
 }

@@ -95,6 +95,17 @@ public class Sql2oAnimalDAO implements AnimalDAO {
         }
     }
 
-
+    @Override
+    public void setOwner(int id, int customerId) {
+        String sql = "UPDATE animals SET customerId = :customerId WHERE id = :id";
+        try (Connection con = sql2o.open()) {
+            con.createQuery(sql)
+                    .addParameter("id", id)
+                    .addParameter("customerId", customerId)
+                    .executeUpdate();
+        } catch (Sql2oException ex) {
+            System.out.println(ex);
+        }
+    }
 }
 

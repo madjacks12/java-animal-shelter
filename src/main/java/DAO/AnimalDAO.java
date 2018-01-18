@@ -22,4 +22,6 @@ public interface AnimalDAO {
     List<Animal> sortByName();
 
     List<Animal> sortByDateAdmitted();
+
+    void setOwner(int id, int customerId);
 }

@@ -17,13 +17,12 @@ public class Animal {
     private int customerId;
 
 
-    public Animal(String name, String gender, String type, String breed, int customerId, String dateAdmitted) {
+    public Animal(String name, String gender, String type, String breed, String dateAdmitted) {
         this.name = name;
         this.gender = gender;
         this.dateAdmitted = dateAdmitted;
         this.type = type;
         this.breed = breed;
-        this.customerId=customerId;
 
     }
 
@@ -75,6 +74,10 @@ public class Animal {
 
     public void setBreed(String breed) {
         this.breed = breed;
+    }
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
     public void setId(int id) {

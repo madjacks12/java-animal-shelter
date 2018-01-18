@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS animals (
   dateAdmitted VARCHAR
 );
 
-CREATE TABLE IF NOT EXISTS customer (
+CREATE TABLE IF NOT EXISTS users (
     id int PRIMARY KEY auto_increment,
     name VARCHAR,
     phone INT,
